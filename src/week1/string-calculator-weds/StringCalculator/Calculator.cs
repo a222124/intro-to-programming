@@ -1,16 +1,21 @@
 ﻿
+using System.Linq.Expressions;
+
 public class Calculator
 {
     public int Add(string numbers)
     {
+        char[] delimeterChars = { ' ', ',', '\n', '#', '/', '\\'}; 
         if (numbers == "")
         {
             return 0;
         }
-        else if (numbers.Contains(','))
+        else if (numbers != string.Empty)
         {
+            // do the exception handling for negative numbers
+
             string[] myNumbers;
-            myNumbers = numbers.Split(',');
+            myNumbers = numbers.Split(delimeterChars);
             int result = 0;
             foreach (string number in myNumbers)
             {

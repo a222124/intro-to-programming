@@ -3,31 +3,40 @@
 
 namespace Banking.Domain;
 
-public enum AccountTypes { Standard, Gold, Platinum };
+
 public class Account
 {
-    private decimal _currentBalance = 5000;
-    public AccountTypes AccountType = AccountTypes.Standard; // zero mean standard account, 1 means it is a Gold account, 2 Plant
+    private ICalculateBonusesForDepositsOnAccounts _bonusCalculator;
+
+    public Account(ICalculateBonusesForDepositsOnAccounts bonusCalculator)
+    {
+        _currentBalance = 5000M;
+        _bonusCalculator = bonusCalculator;
+    }
+
+    private decimal _currentBalance;
+
     // Queries (methods where we ask for stuff)
     public decimal GetBalance()
     {
         return _currentBalance;
     }
-    public void Deposit(decimal amountToDeposit)
+    public void Deposit(AccountTransactionAmount amountToDeposit)
     {
-        var bonus = 0M;
-        if (AccountType == AccountTypes.Gold)
-        {
-            bonus = amountToDeposit * .20M;
-        }
-        CheckTransactionAmount(amountToDeposit);
+
+        var bonus = _bonusCalculator.CalculateBonusForDeposit(_currentBalance, amountToDeposit);
+        ////var bonus = _currentBalance >= 5000 ? amountToDeposit * .20M : 0;
+        //var bc = new StandardBonusCalculator();
+        //var bonus = bc.CalculateBonusForDeposit(_currentBalance, amountToDeposit);
         _currentBalance += amountToDeposit + bonus;
     }
 
+
+
     // Commands - telling our account to do some work.
-    public void Withdraw(decimal amountToWithdraw)
+    public void Withdraw(AccountTransactionAmount amountToWithdraw)
     {
-        CheckTransactionAmount(amountToWithdraw);
+
         if (_currentBalance >= amountToWithdraw)
         {
             _currentBalance -= amountToWithdraw;
@@ -40,11 +49,5 @@ public class Account
     }
 
     // Helpers, etc. extracted from the above.
-    private void CheckTransactionAmount(decimal amount)
-    {
-        if (amount < 0)
-        {
-            throw new AccountNegativeTransactionAmountException();
-        }
-    }
+
 }

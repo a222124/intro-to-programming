@@ -34,5 +34,27 @@ public class CalculatorTests
         var result = calculator.Add(numbers);
         Assert.Equal(result, expected);
     }
-   
+
+    [Theory]
+    [InlineData("1\n2", 3)]
+    [InlineData("1\n2,3", 6)]
+    public void MixDelimeters(string numbers, int expected)
+    {
+        var calculator = new Calculator();
+        var result = calculator.Add(numbers);
+        Assert.Equal(result, expected);
+    }
+
+    [Theory]
+    [InlineData("//#\n1#2#3", 6)]
+    [InlineData("//#\n1#2,3\n1", 7)]
+    public void CustomDelimeters(string numbers, int expected)
+    {
+        var calculator = new Calculator();
+        var result = calculator.Add(numbers);
+        Assert.Equal(result, expected);
+    }
+
+
+
 }
