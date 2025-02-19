@@ -5,7 +5,7 @@ public class Calculator
 {
     public int Add(string numbers)
     {
-        char[] delimeterChars = { ' ', ',', '\n', '#', '/', '\\'}; 
+        char[] delimeterChars = { ' ', ',', '\n', '#', '/', '\\', '*', '[', ']', '!' }; 
         if (numbers == "")
         {
             return 0;
@@ -14,8 +14,20 @@ public class Calculator
         {
             // do the exception handling for negative numbers
 
-            string[] myNumbers;
+             List<string> myNumbers = new List<string> {} ;
+            foreach (string number in myNumbers)
+            {
+                if (delimeterChars.Contains(number))
+                {
+                    continue;
+                }
+                else
+                {
+                    myNumbers.Add(number);
+                }
+            }
             myNumbers = numbers.Split(delimeterChars);
+
             int result = 0;
             foreach (string number in myNumbers)
             {
