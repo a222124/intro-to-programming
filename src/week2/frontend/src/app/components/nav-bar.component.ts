@@ -49,7 +49,7 @@ import { LoginStatusComponent } from './login-status.component';
         </ul>
       </div>
       <div class="navbar-end">
-        <a class="btn"><app-login-status /></a>
+        <app-login-status />
       </div>
     </div>
   `,
@@ -59,5 +59,6 @@ export class NavBarComponent {
   links = signal([
     { path: 'banking', text: 'Banking' },
     { path: 'resources', text: 'Developer Resources' },
+    { path: 'counter', text: 'Counter Demo' },
   ]);
 }

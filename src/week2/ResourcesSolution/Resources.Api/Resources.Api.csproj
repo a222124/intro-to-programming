@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="Marten" Version="7.37.3" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
+    <PackageReference Include="RavenDB.Client" Version="7.0.0" />
+    <PackageReference Include="Riok.Mapperly" Version="4.1.1" />
   </ItemGroup>
 
 </Project>
